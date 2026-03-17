@@ -5,8 +5,8 @@ CFLAGS :=
 LDFLAGS :=
 DEFINES :=
 
-CFLAGS += -I"/home/tudor/STM32CubeF1/Drivers/CMSIS/Core/Include"
-CFLAGS += -I"/home/tudor/STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Include"
+CFLAGS += -I"./STM32CubeF1/Drivers/CMSIS/Core/Include"
+CFLAGS += -I"./STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Include"
 
 DEFINES += -DSTM32F103xB
 
