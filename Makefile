@@ -11,7 +11,7 @@ CFLAGS += -I"./STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Include"
 
 DEFINES += -DSTM32F103xB
 
-all: pc13_blink.bin
+all: firmware.bin
 
 pc13_blink.o: pc13_blink.c
 	$(CC) $(CFLAGS) $(DEFINES) -c pc13_blink.c
@@ -19,10 +19,10 @@ pc13_blink.o: pc13_blink.c
 boot.o: boot.c
 	$(CC) $(CFLAGS) $(DEFINES) -c boot.c
 
-pc13_blink.elf: pc13_blink.o boot.o
+firmware.elf: pc13_blink.o boot.o
 	$(LD) $(LDFLAGS) $^ -o $@
 
-pc13_blink.bin: pc13_blink.elf
+firmware.bin: firmware.elf
 	$(OBJCOPY) -O binary $^ $@
 
 clean:
