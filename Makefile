@@ -3,13 +3,13 @@ LD := arm-none-eabi-ld
 OBJCOPY := arm-none-eabi-objcopy
 
 CFLAGS :=
-LDFLAGS := -T stm32f103c8.ld
+LDFLAGS := -T stm32f103RCTb.ld
 DEFINES :=
 
 CFLAGS += -I"./STM32CubeF1/Drivers/CMSIS/Core/Include"
 CFLAGS += -I"./STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Include"
 
-DEFINES += -DSTM32F103xB
+DEFINES += -DSTM32F103xE
 
 all: firmware.bin
 
