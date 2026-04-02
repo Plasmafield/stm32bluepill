@@ -2,6 +2,7 @@ import serial
 import time
 
 ACK = 0x79
+NACK = 0x1F
 hello_byte = bytes([0x7F])
 get_version_cmd = bytes([0x1, 0xFE])
 get_cmds_cmd = bytes([0x0, 0xFF])
@@ -13,6 +14,13 @@ def valid_resp(data):
         return False
     return True
 
+def check_nack(data):
+    if len(data) == 0:
+        return False
+    if data[0] != NACK:
+        return False
+    return True
+
 def get_version(com):
     com.write(get_version_cmd)
     resp = com.read(5)
@@ -21,8 +29,7 @@ def get_version(com):
     return resp[1]
 
 def hello(com):
-    retry = 3
-    valid = False
+    retry = 2
 
     while retry != 0:
         retry = retry - 1
@@ -32,14 +39,19 @@ def hello(com):
         
         valid = valid_resp(resp)
         if valid:
-            break
+            return True
+        if check_nack(resp): # Bootloader already initialized for UART
+            return True
     
-    return valid
+    return False
 
 com = serial.Serial('/dev/ttyUSB0', 9600, timeout = 1, parity=serial.PARITY_EVEN)
 
 if not hello(com):
     print("Coult not establish bootloader UART communication")
+    exit()
+else:
+    print("Bootloader initialized for UART")
 
 version = get_version(com)
 print("Bootloader version: " + hex(version))
