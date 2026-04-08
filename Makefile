@@ -14,10 +14,10 @@ DEFINES += -DSTM32F103xE
 all: firmware.bin
 
 pc13_blink.o: pc13_blink.c
-	$(CC) $(CFLAGS) $(DEFINES) -c pc13_blink.c
+	$(CC) $(CFLAGS) $(DEFINES) -c $^
 
 boot.o: boot.c
-	$(CC) $(CFLAGS) $(DEFINES) -c boot.c
+	$(CC) $(CFLAGS) $(DEFINES) -c $^
 
 firmware.elf: pc13_blink.o boot.o
 	$(LD) $(LDFLAGS) $^ -o $@
